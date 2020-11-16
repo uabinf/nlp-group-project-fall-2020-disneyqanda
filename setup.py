@@ -7,7 +7,7 @@ setuptools.setup(
     name="nlp-group-project-fall-2020-disneyqanda", 
     version="0.0.1",
     author="Deeptha Srirangam, Leigh Allison",
-    author_email="deeptha@uab.edu, leighg@uab.edu",
+    author_email="",
     description="Disney Q and A",
     long_description=long_description,
     long_description_content_type="text/markdown",
