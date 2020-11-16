@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="nlp-group-project-fall-2020-disneyqanda", 
+    name="disneyqanda", 
     version="0.0.1",
     author="Deeptha Srirangam, Leigh Allison",
     author_email="",
