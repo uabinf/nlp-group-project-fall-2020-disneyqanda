@@ -18,28 +18,30 @@ def main():
     
     # Instantiate the question object
     question = Question(q)
-    print()
-    print("Start Question Processing")
+    print("Question Processing\n")
+    print("Question tokenized:", question.q_tokens,"\n")
+    print("Question stopwords removed:", question.q_sw_removed,"\n")
+    print("Question POS:", question.q_pos,"\n")
             
     # Determine the question type
     q_type = question.question_type()
-    print("question type:", q_type)
+    print("question type:", q_type,"\n")
     
     # Find the query key words
     key_words = question.key_words()
-    print("key words:", key_words)
+    print("key words:", key_words,"\n")
     
     # Get the question's focus
     focus = question.focus()
-    print("focus:", focus)
+    print("focus:", focus,"\n")
     
     # Get the question's relations
     rels = question.relations()
-    print("relations:", rels)
+    print("relations:", rels,"\n")
     
     # Determine the answer type
     ans_type = question.answer_type()
-    print("answer type:", ans_type)
+    print("answer type:", ans_type,"\n")
     
     # Document Retrieval
     passage = document_processing(q)
@@ -47,9 +49,8 @@ def main():
     
     # Answer Processing
     a = answer_processing(question, passage)
-    print()
     print("Answer:")
     print(a)
     
-    
-main()    
+if __name__ == "__main__":
+    main()      

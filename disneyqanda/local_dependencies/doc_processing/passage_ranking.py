@@ -11,4 +11,5 @@
 
 def passage_ranking(psg):
     rank = 1
+    print("Ranking passages\n")
     return rank

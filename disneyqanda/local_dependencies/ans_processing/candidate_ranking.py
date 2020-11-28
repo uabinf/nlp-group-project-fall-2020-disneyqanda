@@ -12,4 +12,5 @@
 
 
 def rank_candidate(ans):
+    print("Ranking candidate answers\n")
     return "good match"

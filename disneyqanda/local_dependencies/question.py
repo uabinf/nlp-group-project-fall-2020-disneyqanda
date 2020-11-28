@@ -11,10 +11,20 @@ from local_dependencies.quest_processing.key_words import q_key_words
 from local_dependencies.quest_processing.focus import q_focus
 from local_dependencies.quest_processing.relations import q_relations
 
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+stop_words = set(stopwords.words('english'))
+
+
 class Question:
     def __init__(self, q):
         self.q = q
-    
+        self.q_tokens = word_tokenize(q)
+        self.q_sw_removed = [w.lower() for w in self.q_tokens if not w.lower() in stop_words]
+        self.q_pos = nltk.pos_tag(self.q_sw_removed, tagset='universal')
+            
     
      # Question type classification
     def question_type(self):
@@ -44,5 +54,7 @@ class Question:
     def answer_type(self):
         q_a_type = q_answer_type(self)
         return q_a_type
+    
+    
     
     

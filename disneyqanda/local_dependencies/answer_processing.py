@@ -12,7 +12,7 @@ from local_dependencies.ans_processing.candidate_answers import get_candidate_an
 
 def answer_processing(q, pas):
     print()
-    print("Start Answer Processing")
+    print("Answer Processing")
     
     ner_matches = ner_tagger(pas)
     
