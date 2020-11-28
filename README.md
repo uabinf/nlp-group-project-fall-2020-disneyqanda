@@ -8,3 +8,5 @@ Deeptha Srirangam
 
 Leigh Allison
 
+
+![](images/cover.png)
