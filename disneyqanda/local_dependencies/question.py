@@ -27,7 +27,7 @@ class Question:
         self.q_sw_removed = [w.lower() for w in self.q_tokens if not w.lower() in stop_words]
         # POS tag it
         self.q_pos = nltk.pos_tag(self.q_sw_removed, tagset='universal')
-        
+        # Remove punctuation
         self.q_no_punc = [w[0] for w in self.q_pos if not w[1] == "."]
             
     
