@@ -24,6 +24,7 @@ class Question:
         self.q_tokens = word_tokenize(q)
         self.q_sw_removed = [w.lower() for w in self.q_tokens if not w.lower() in stop_words]
         self.q_pos = nltk.pos_tag(self.q_sw_removed, tagset='universal')
+        self.q_no_punc = [w[0] for w in self.q_pos if not w[1] == "."]
             
     
      # Question type classification
@@ -33,8 +34,8 @@ class Question:
     
     
     # Get the query key words
-    def key_words(self):
-        keys = q_key_words(self)
+    def key_words(self, entities):
+        keys = q_key_words(self, entities)
         return keys
     
     
