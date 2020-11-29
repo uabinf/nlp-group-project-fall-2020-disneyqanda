@@ -13,6 +13,16 @@
     
 
 def q_key_words(question, df_disney):
+    key_words = []
+    
+    ## Get nouns with adjective modiers
+    question.q_pos[0][1]
+    for index in range(len(question.q_pos)-1):
+        if (question.q_pos[index][1] == 'ADJ') & (question.q_pos[index+1][1] == 'NOUN'):
+            key_words.append(question.q_pos[index][0])
+            key_words.append(question.q_pos[index+1][0]) 
+            
+            
     
     ## Get any words in our Disney entity list
     # Get the # of words in each Disney entity
@@ -30,7 +40,7 @@ def q_key_words(question, df_disney):
     df_disney["match"] = df_disney["winq_len"]/df_disney["total"]
     
     # Get the words from the question with the highest ratio of matching an entity
-    key_words = df_disney["winq"][df_disney["match"] == df_disney["match"].max()].iloc[0]
+    key_words.extend(df_disney["winq"][df_disney["match"] == df_disney["match"].max()].iloc[0])
             
     
     return key_words
