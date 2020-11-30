@@ -1,31 +1,12 @@
 # -*- coding: utf-8 -*-
-
-# Answer type detection
-    # ML classification problem
-    # Important features are:
-    #   question words and phrases
-    #   POS tags
-    #   parse features (headwords)
-    #   Named Entities
-    #   Semantically related words
-    # See the keywords selection algorithm slide
-
-    
-#from gensim.models import Word2Vec
-#import xgboost
-#import multiprocessing
-#cores = multiprocessing.cpu_count()
-#model = Word2Vec(size=256, window=5, min_count=1, workers=cores-2)
-
-# Figure out the correct NE type (person, place, or thing, etc)
-# Look at question words in the question (regex)
-# Question headwords (dependency parsers)
-    
+        
 # Define a taxonomy of question types
 # Annotate training data for each question type
 # Train classifiers for each question class using a rich set of features
 #import spacy
 import pandas as pd
+import pickle
+import nltk
 import en_core_web_sm
 nlp = en_core_web_sm.load()
 
@@ -40,7 +21,7 @@ def get_head_words(q):
     # Use en_core_web_sm for dependency parsing
     doc = nlp(q)
     words = [(x.text, x.pos_, x.head.text, x.dep_) for x in doc]
-    print("Dependency parsing:\n", words,"\n")
+    print("Dependency parsing:___________________________\n", words,"\n")
     root_word = [x[0] for x in words if x[3] == "ROOT"]
     print("Root word:", root_word,"\n")
     dep_on_root = [x[0] for x in words if x[2] == root_word[0]]
@@ -67,34 +48,49 @@ def get_anstype_features(question):
         'question': question.q,
         'quest_words': ' '.join(get_question_words(question.q_tokens)),
         'head_words': ' '.join(get_head_words(question.q)),
-       # 'entities': get_named_entities(question.q)
+        'entities': str(get_named_entities(question.q)).strip("[]")
             }
     
+    
 def q_answer_type(question):
-     if question.q.find("height") > 0:
-         a_type = "numeric, height"
-     else:
-         a_type = "not height"
-         
-     a_type = get_anstype_features(question)
-     return a_type
+    # Load the trained answer type classification model
+    classifier_file = open("data/ans_type_classifier","rb")
+    classifier_model = pickle.load(classifier_file)
+    classifier_file.close()
+    
+    # Get the features for the question that was asked
+    q_features = get_anstype_features(question)
+    
+    # Predict the answer type of the question
+    a_type = classifier_model.classify(q_features)
+    return a_type
  
 
+# Run on-demand to train the model
 def train_ans_type_model():
     # Read training data
     df_ans_type = pd.read_csv("data/Question_AnswerType.csv") 
     
+    # Get the features for the training questions
     df_ans_type["features"] = df_ans_type["question"].apply(
             lambda x:get_anstype_features(Question(x))
             )
     
+    # Declare an empty list to put the features and labels in
     train = []
     for index, row in df_ans_type.iterrows():
         train.append([row["features"],row["label"]])
     
-    train    
+    #train - Viewing data for sanity check    
     
+    # Train classifier 
     classifier = nltk.NaiveBayesClassifier.train(train)
+    
+    # Save trained model
+    save_classifier = open("data/ans_type_classifier","wb")
+    pickle.dump(classifier, save_classifier)
+    save_classifier.close()
+    
     
     
     

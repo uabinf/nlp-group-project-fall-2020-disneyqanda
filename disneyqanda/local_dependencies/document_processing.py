@@ -14,7 +14,7 @@ from local_dependencies.doc_processing.passage_ranking import passage_ranking
 
 def document_processing(q):
     print()
-    print("Document Processing")
+    print("_____________________________________________\nDocument Processing\n")
     doc = doc_retrieval()
     
     seg = doc_segmentation(doc)
