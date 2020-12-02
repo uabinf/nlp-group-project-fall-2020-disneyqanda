@@ -16,7 +16,6 @@ def q_key_words(question, df_disney):
     key_words = []
     
     ## Get nouns with adjective modiers
-    question.q_pos[0][1]
     for index in range(len(question.q_pos)-1):
         if (question.q_pos[index][1] == 'ADJ') & (question.q_pos[index+1][1] == 'NOUN'):
             key_words.append(question.q_pos[index][0])
