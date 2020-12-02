@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
+# Search for best q/a pair
 
 def passage_retrieval(seg):
-    psg = seg[1]
+    psg = 'A question/answer pair'
     print("Retrieving passages\n")
     return psg
 

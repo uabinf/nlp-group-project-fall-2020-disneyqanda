@@ -20,7 +20,7 @@ def answer_processing(q, pas):
         
     ans_ranking = rank_candidate(ans)
     
-    best_answer = "Yes. Guests must be 40 in (102 cm) or taller."
+    best_answer = "Guests must be 40 in (102 cm) or taller."
     return best_answer
 
         

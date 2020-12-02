@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Rule-based classifiers or supervised ML
+# SVM
 
 # Features for passage ranking:
 #   - Number of named entities of the right type in passage

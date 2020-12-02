@@ -22,7 +22,6 @@ def q_key_words(question, df_disney):
             key_words.append(question.q_pos[index][0])
             key_words.append(question.q_pos[index+1][0]) 
             
-            
     
     ## Get any words in our Disney entity list
     # Get the # of words in each Disney entity

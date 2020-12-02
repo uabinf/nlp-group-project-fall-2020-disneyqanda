@@ -8,7 +8,7 @@ Question Class
 from local_dependencies.quest_processing.answer_type import q_answer_type
 from local_dependencies.quest_processing.question_type import q_question_type
 from local_dependencies.quest_processing.key_words import q_key_words
-from local_dependencies.quest_processing.focus import q_focus
+from local_dependencies.quest_processing.focus import q_head_words
 from local_dependencies.quest_processing.relations import q_relations
 
 import nltk
@@ -41,14 +41,8 @@ class Question:
     def key_words(self, entities):
         keys = q_key_words(self, entities)
         return keys
-    
-    
-    # Focus detection
-    def focus(self):
-        foc = q_focus(self)
-        return foc
-    
-    
+        
+       
     # Relation extraction
     def relations(self):
         rels = q_relations(self)
