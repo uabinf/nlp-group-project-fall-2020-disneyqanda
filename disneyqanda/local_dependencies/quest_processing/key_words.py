@@ -1,21 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# Select non-stopwords in quotatations
-# Select recognized named entities
-# Select Complex nominals with their adjectival modifiers
-# Select all other complex nominals
-# Select all nouns with their adjectival modifiers
-# Select all other nouns
-# Select all verbs
-# Select all adverbs
-# Select the QFW word (skipped in all previous steps)
-# Select all other words
-    
+# Function to find the key words in the question being asked
+
 
 def q_key_words(question, df_disney):
     key_words = []
     
     ## Get nouns with adjective modiers
+    # Add them to the key words list
     for index in range(len(question.q_pos)-1):
         if (question.q_pos[index][1] == 'ADJ') & (question.q_pos[index+1][1] == 'NOUN'):
             key_words.append(question.q_pos[index][0])
@@ -38,6 +30,7 @@ def q_key_words(question, df_disney):
     df_disney["match"] = df_disney["winq_len"]/df_disney["total"]
     
     # Get the words from the question with the highest ratio of matching an entity
+    # Add them to the key words list
     key_words.extend(df_disney["winq"][df_disney["match"] == df_disney["match"].max()].iloc[0])
             
     
