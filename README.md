@@ -14,7 +14,7 @@ Leigh Allison (MS Data Science student)
 
 ## Installation
 ```python
-pip install nlp-group-project-fall-2020-disneyqanda
+pip install git+https://github.com/uabinf/nlp-group-project-fall-2020-disneyqanda
 ```
 ## Usage
 ```python
