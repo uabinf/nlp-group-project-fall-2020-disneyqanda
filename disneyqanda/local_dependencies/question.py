@@ -39,7 +39,7 @@ class Question:
      
     # Determine the answer type 
     def answer_type(self, keys):
-        q_a_type = q_answer_type(self)
+        q_a_type = q_answer_type(self, keys)
         return q_a_type
     
     

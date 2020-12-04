@@ -53,13 +53,14 @@ def q_answer_type(question, keys):
  
 
 # Run on-demand to train the model
+# Must have the Question class imported and Disney entity list loaded
 def train_ans_type_model():
     # Read training data
     df_ans_type = pd.read_csv("data/Question_AnswerType.csv") 
     
     # Get the features for the training questions
     df_ans_type["features"] = df_ans_type["question"].apply(
-            lambda x:get_anstype_features(Question(x))
+            lambda x:get_anstype_features(Question(x), q_key_words(Question(x),df_disney))
             )
     
     # Declare an empty list to store the features and labels
