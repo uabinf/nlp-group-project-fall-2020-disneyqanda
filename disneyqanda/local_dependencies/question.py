@@ -4,12 +4,12 @@ Created on Sun Nov 15 14:08:25 2020
 
 Question Class
 
+Initialization tokenizes, removes stopwords, pos tags, and removes punctuation.
+Answer type function gets the other question features.
+    
 """
 from local_dependencies.quest_processing.answer_type import q_answer_type
-from local_dependencies.quest_processing.question_type import q_question_type
 from local_dependencies.quest_processing.key_words import q_key_words
-from local_dependencies.quest_processing.focus import q_head_words
-from local_dependencies.quest_processing.relations import q_relations
 
 import nltk
 from nltk.corpus import stopwords
@@ -30,27 +30,15 @@ class Question:
         # Remove punctuation
         self.q_no_punc = [w[0] for w in self.q_pos if not w[1] == "."]
             
-    
-     # Question type classification
-    def question_type(self):
-        q_type = q_question_type(self)
-        return q_type
-    
-    
+        
     # Get the query key words
     def key_words(self, entities):
         keys = q_key_words(self, entities)
         return keys
         
-       
-    # Relation extraction
-    def relations(self):
-        rels = q_relations(self)
-        return rels
-        
-
+     
     # Determine the answer type 
-    def answer_type(self):
+    def answer_type(self, keys):
         q_a_type = q_answer_type(self)
         return q_a_type
     

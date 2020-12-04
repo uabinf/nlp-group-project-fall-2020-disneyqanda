@@ -2,7 +2,7 @@
         
 # Define a taxonomy of question types
 # Annotate training data for each question type
-# Train classifiers for each question class using a rich set of features
+# Train a classifier for question using a rich set of features
 #import spacy
 from .key_words import q_key_words
 from .focus import q_head_words
@@ -28,23 +28,24 @@ def get_named_entities(q):
     return n_ents
 
 
-def get_anstype_features(question):
+def get_anstype_features(question, keys):
     return {
         'question': question.q,
         'quest_words': ' '.join(get_question_words(question.q_tokens)),
         'head_words': ' '.join(q_head_words(question.q)),
+        'key_words': ''.join(keys),
         'entities': str(get_named_entities(question.q)).strip("[]")
             }
     
     
-def q_answer_type(question):
+def q_answer_type(question, keys):
     # Load the trained answer type classification model
     classifier_file = open("data/ans_type_classifier","rb")
     classifier_model = pickle.load(classifier_file)
     classifier_file.close()
     
     # Get the features for the question that was asked
-    q_features = get_anstype_features(question)
+    q_features = get_anstype_features(question, keys)
     
     # Predict the answer type of the question
     a_type = classifier_model.classify(q_features)
@@ -61,12 +62,10 @@ def train_ans_type_model():
             lambda x:get_anstype_features(Question(x))
             )
     
-    # Declare an empty list to put the features and labels in
+    # Declare an empty list to store the features and labels
     train = []
     for index, row in df_ans_type.iterrows():
         train.append([row["features"],row["label"]])
-    
-    #train - Viewing data for sanity check    
     
     # Train classifier 
     classifier = nltk.NaiveBayesClassifier.train(train)
