@@ -42,6 +42,9 @@ Disney Q & A has 4 main sections:
         * nltk Naive Bayes model trained on lableed questions
         * Use features from question processing for the model
 3) Document Processing
+    * Document Retrieval
+        * Read documents, join corresponding questions and answers
+    * Document Segmentation
 4) Answer Processing
     * NER tagger 
         * Search against custom Disney entity list
