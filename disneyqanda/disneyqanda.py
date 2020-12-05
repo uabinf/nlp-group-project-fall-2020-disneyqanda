@@ -16,10 +16,10 @@ def main():
     # Load the Disney entity list
     df_disney_ent = pd.read_csv("data/DisneyEntities.csv")   
     df_disney = disney_entities(df_disney_ent)
-    
-    
+        
     # Get the question
-    q = "Is there a height requirement for Star Wars: Rise of the Resistance?"
+    #q = "Is there a height requirement for Star Wars: Rise of the Resistance?"
+    q = "What's the best way to get to Walt Disney World?"
     
     print("_____________________________________________\nQuestion:\n",q,"\n")
     
