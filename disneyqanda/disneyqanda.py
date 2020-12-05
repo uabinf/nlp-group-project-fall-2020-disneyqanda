@@ -42,7 +42,7 @@ def main():
     
     
     # Document Retrieval
-    passage = document_processing(q)
+    passage = document_processing(q, key_words)
     
     
     # Answer Processing
