@@ -1,32 +1,33 @@
 # -*- coding: utf-8 -*-
 
-# Features for ranking candidate answers
-#   - answer type match
-#   - pattern match
-#   - question keywords
-#   - keyword distance
-#   - novelty factor
-#   - apposition features (adding extra info, like this, to sentence)
-#   - punctuation location
-#   - sequences of question terms
+
+from .answer_type import a_answer_type
+from .key_words import a_key_words
 
 import en_core_web_sm
 nlp = en_core_web_sm.load()
 
 
-def rank_candidate(ans):
+def rank_candidate(candidates, df_disney, ans_type):
     print("Ranking candidate answers\n")
-    
-    # Use en_core_web_sm to get named entities in the questions and answers
-    ans['doc'] = ans['text'].apply(
-            lambda x: nlp(x)
+        
+    # Get the answer type for the candidate answers
+    candidates["answer_type"] = candidates["a_question"].apply(
+            lambda x: a_answer_type(x, a_key_words(x, df_disney))
             )
     
-    ans['ents'] = ans['doc'].apply(
-            lambda x: [(w.text, w.label_) for w in x.ents]
-            )
+    candidates['s1'] = candidates['score'].rank(method='max')
+    candidates['s2'] = candidates['word_matches'].rank(method='max')
+    candidates['s3'] = candidates['answer_type'].apply(
+            lambda x: 1 if x == ans_type else 0)
+    
+    candidates['overall'] = candidates['s1'] + 2*candidates['s2'] + 20*candidates['s3']
     
     
+    answer = candidates.nlargest(1, 'overall')
+    print("Cosine score:", answer.score.values)
+    print("Word matches:", answer.word_matches.values)
+    print("Answer's answer type:", answer.answer_type.values)
     
     
-    return "good match"
+    return answer

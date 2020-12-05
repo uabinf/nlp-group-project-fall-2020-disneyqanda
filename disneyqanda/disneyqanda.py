@@ -4,6 +4,7 @@ Spyder Editor
 
 This is a temporary script file.
 """
+
 import pandas as pd
 
 from local_dependencies.disney_data import disney_entities
@@ -19,7 +20,7 @@ def main():
         
     # Get the question
     #q = "Is there a height requirement for Star Wars: Rise of the Resistance?"
-    q = "What's the best way to get to Walt Disney World?"
+    q = "What kinds of prices can I expect to pay for food inside the theme parks and at Disney Resort hotels?"
     
     print("_____________________________________________\nQuestion:\n",q,"\n")
     
@@ -42,11 +43,12 @@ def main():
     
     
     # Document Retrieval
-    passage = document_processing(q, key_words)
+    ranking = document_processing(question, key_words)
     
     
     # Answer Processing
-    answer_processing(question, passage)
+    answer = answer_processing(question, ranking, df_disney, ans_type)
+    print("Best answer:\n", str(answer.answer.values))
     
     
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 
 import pandas as pd 
 def doc_retrieval():
-    with open("../../data/qna.txt", 'r') as f:
+    with open("data/qna.txt", 'r') as f:
         qa = []
         q = ''
         for i, line in enumerate(f):
@@ -11,7 +11,7 @@ def doc_retrieval():
             else:
                 qa.append([q, line[:-1]])
                 q = ''
-    df = pd.DataFrame(qa, columns=['question', 'answer'])
+    doc_df = pd.DataFrame(qa, columns=['question', 'answer'])
 
-    return df
+    return doc_df
 

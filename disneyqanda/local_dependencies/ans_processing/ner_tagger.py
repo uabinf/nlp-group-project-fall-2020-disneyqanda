@@ -13,11 +13,11 @@ stop_words = set(stopwords.words('english'))
 from local_dependencies.disney_data import disney_entities
 
 
-def ner_tagger(df):
+def ner_tagger(ranking):
     print("Running NER tagger on passages\n")
     
     # Add an empty field for the entities found
-    df['entity'] = ""
+    ranking['entity'] = ""
     
     # Load the Disney entity list
     df_disney_ent = pd.read_csv("data/DisneyEntities.csv")   
@@ -39,7 +39,7 @@ def ner_tagger(df):
 
     
     
-    for index, row in df.iterrows():
+    for index, row in ranking.iterrows():
         #print(row['tokens'])
         
         # Get the words from each question/answer that are in each Disney entity
@@ -56,8 +56,8 @@ def ner_tagger(df):
         # Get the words from the question with the highest ratio of matching an entity
         words = []
         words = (df_disney_a["no_punc"][df_disney_a["match"] == df_disney_a["match"].max()].iloc[0])
-        df.loc[index, 'entity'] = ' '.join(words)
+        ranking.loc[index, 'entity'] = ' '.join(words)
         
         
-    return df
+    return ranking
     
