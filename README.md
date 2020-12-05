@@ -108,3 +108,79 @@ Disney Q & A has 4 main sections:
 |   |   |   |-candidate_answer.py
 |   |   |   |-candidate_ranking.py
 ```
+
+## Sample Runs
+```
+_____________________________________________
+Question:
+ How much does it cost to renew my annual pass? 
+
+_____________________________________________
+Question Processing
+
+Question tokenized:
+ ['How', 'much', 'does', 'it', 'cost', 'to', 'renew', 'my', 'annual', 'pass', '?'] 
+
+Question stopwords removed:
+ ['much', 'cost', 'renew', 'annual', 'pass', '?'] 
+
+Key Words Found:
+ ['much', 'cost', 'annual', 'pass'] 
+
+Question words found: ['how', 'does'] 
+
+Dependency parsing:___________________________
+ [('How', 'ADV', 'much', 'advmod'), ('much', 'ADJ', 'cost', 'dobj'), ('does', 'AUX', 'cost', 'aux'), ('it', 'PRON', 'cost', 'nsubj'), ('cost', 'VERB', 'cost', 'ROOT'), ('to', 'PART', 'renew', 'aux'), ('renew', 'VERB', 'cost', 'xcomp'), ('my', 'DET', 'pass', 'poss'), ('annual', 'ADJ', 'pass', 'amod'), ('pass', 'NOUN', 'renew', 'dobj'), ('?', 'PUNCT', 'cost', 'punct')] 
+
+Root word: ['cost'] 
+
+Words dependent on root: ['much', 'does', 'it', 'cost', 'renew', '?'] 
+
+Nouns dependent on root: [] 
+
+Words related to those nouns: [] 
+
+Head words found:
+ ['cost'] 
+
+Named entities found: [('annual', 'DATE')] 
+
+Answer type: cost 
+
+
+_____________________________________________
+Document Processing
+
+1976  documents retrieved
+
+468  passages retrieved
+
+Ranking passages
+
+Passages ranked by cosine similarity:                                             question  ...     score
+0     How much does it cost to renew my annual pass?  ...  0.926245
+1  I am a Florida resident. Can I renew my Annual...  ...  0.638627
+2  Can I renew an Annual Pass for a Guest other t...  ...  0.747848
+3  I didn't receive my renewal notice and need to...  ...  0.883498
+4  Why am I getting an error message when I try t...  ...  0.704330
+5  If I purchase a select Florida Resident Annual...  ...  0.991983
+6  What proof of residence will I need to provide...  ...  1.224057
+7  I’m an Annual Passholder. How often will I rec...  ...  0.694114
+8  Do Annual Passholders receive discounts on the...  ...  0.863522
+9        How much does it cost to park at the parks?  ...  0.632522
+
+[10 rows x 6 columns]
+
+Answer Processing
+Running NER tagger on passages
+
+Selecting candidate answers
+
+Ranking candidate answers
+
+Cosine score: [1.0090003]
+Word matches: [5]
+Answer's answer type: ['cost']
+Best answer:
+ ['You can view Passholder status renewal prices online, , ask at any Walt Disney World ticket window and call (407) 560-PASS or (407) 560-7277. Guests under 18 years of age must have parent or guardian permission to call.There are 3 convenient ways to renew your Passholder status:Renew online, Renew at any Walt Disney World Resort theme park ticket window or Disney Springs Guest Relations location.Renew over the phone by calling (407) 560-PASS or (407) 560-7277. Guests under 18 years of age must have parent or guardian permission to call.If you are renewing through the Monthly Payment Program for Florida residents, phone renewals are not available. However, you can renew online, in person at a theme park ticket window or Guest Relations location.Though the pass owner does not need to be present for renewal, each Annual Passholder will need to be present at the ticket window to receive his or her pass.If you purchased your current pass before October 4, 2015, you may be asked to select one of the new pass types available at the time of your renewal.Learn more about Annual Passes,  or purchase a new Annual Pass.']
+ ```
