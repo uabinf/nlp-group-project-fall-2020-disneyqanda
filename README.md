@@ -66,16 +66,18 @@ Disney Q & A has 4 main sections:
     * Passage Retrieval 
         * Get the list of answers from Document Segmentation
     * Passage Ranking 
-        * 
+        * Doc2Vec model trained on all Disney questions and answers
+        * Get embeddings of question being asked and questions mined from Disney
+        * Use cosine similarity to get most similar questions
 4) Answer Processing
     * NER tagger 
         * Search against custom Disney entity list
     * Candidate answers
-        * Doc2Vec model trained on all Disney questions and answers
-        * Get embeddings of question being asked and questions mined from Disney
-        * Use cosine similarity to get most similar questions
         * Get questions with most matching words to question being asked
     * Ranking candidates
+        * Check named entities in questions and answers
+        * Check the answer type for each candidate answer's question
+        * Choose the best match base on these features 
 
 ## Directory Structure
 ```bash
