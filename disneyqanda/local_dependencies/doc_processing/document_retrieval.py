@@ -2,7 +2,7 @@
 
 import pandas as pd 
 def doc_retrieval():
-    with open("../dataCollection/q&a.txt", 'r') as f:
+    with open("../../data/qna.txt", 'r') as f:
         qa = []
         q = ''
         for i, line in enumerate(f):
