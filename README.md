@@ -24,7 +24,21 @@ import disneyqanda
 Ask a question about Disney World or Disney Land.
 Disney Q & A has 4 main sections:
 1) Data Retrieval
-    
+    * Use selenium to go to each webpage and BeautifulSoup to parse the data found in each webpage
+    * Disney World
+        * Go through 4 main categories: Walt Disney World Resort, Vacation Planning, MyMagic+, Website Support
+        * Within the 4 main categories: go through subcategories which contain the list of questions
+        * For each subcategory, get the list of questions with their answers
+    * Disneyland
+        * Go through 4 main categories: Disneyland Resort, Vacation Planning, Technical Support
+        * Within the 4 main categories: go through subcategories which contain the list of questions
+        * For each subcategory, get the list of questions with their answers
+    * Create a textfile with the list of questions and answers in the following format:
+        Q1
+        A1
+        Q2
+        A2
+        ....
 2) Question Processing
     * Basic processing
         * Tokenize
@@ -46,6 +60,13 @@ Disney Q & A has 4 main sections:
     * Document Retrieval
         * Read documents, join corresponding questions and answers
     * Document Segmentation
+        * Given the list of documents from document retrieval, iterate through the questions and check to see if keywords from question processing appear in the question.
+        * If there are keywords that match, add the answer to a list 
+        * Returns a list of possible answers
+    * Passage Retrieval 
+        * Get the list of answers from Document Segmentation
+    * Passage Ranking 
+        * 
 4) Answer Processing
     * NER tagger 
         * Search against custom Disney entity list
