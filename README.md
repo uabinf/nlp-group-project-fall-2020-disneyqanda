@@ -66,16 +66,18 @@ Disney Q & A has 4 main sections:
     * Passage Retrieval 
         * Get the list of answers from Document Segmentation
     * Passage Ranking 
-        * 
+        * Doc2Vec model trained on all Disney questions and answers
+        * Get embeddings of question being asked and questions mined from Disney
+        * Use cosine similarity to get most similar questions
 4) Answer Processing
     * NER tagger 
         * Search against custom Disney entity list
     * Candidate answers
-        * Doc2Vec model trained on all Disney questions and answers
-        * Get embeddings of question being asked and questions mined from Disney
-        * Use cosine similarity to get most similar questions
         * Get questions with most matching words to question being asked
     * Ranking candidates
+        * Check named entities in questions and answers
+        * Check the answer type for each candidate answer's question
+        * Choose the best match base on these features 
 
 ## Directory Structure
 ```bash
@@ -106,3 +108,154 @@ Disney Q & A has 4 main sections:
 |   |   |   |-candidate_answer.py
 |   |   |   |-candidate_ranking.py
 ```
+
+## Sample Runs
+```
+_____________________________________________
+Question:
+ How much does it cost to renew my annual pass? 
+
+_____________________________________________
+Question Processing
+
+Question tokenized:
+ ['How', 'much', 'does', 'it', 'cost', 'to', 'renew', 'my', 'annual', 'pass', '?'] 
+
+Question stopwords removed:
+ ['much', 'cost', 'renew', 'annual', 'pass', '?'] 
+
+Key Words Found:
+ ['much', 'cost', 'annual', 'pass'] 
+
+Question words found: ['how', 'does'] 
+
+Dependency parsing:___________________________
+ [('How', 'ADV', 'much', 'advmod'), ('much', 'ADJ', 'cost', 'dobj'), ('does', 'AUX', 'cost', 'aux'), ('it', 'PRON', 'cost', 'nsubj'), ('cost', 'VERB', 'cost', 'ROOT'), ('to', 'PART', 'renew', 'aux'), ('renew', 'VERB', 'cost', 'xcomp'), ('my', 'DET', 'pass', 'poss'), ('annual', 'ADJ', 'pass', 'amod'), ('pass', 'NOUN', 'renew', 'dobj'), ('?', 'PUNCT', 'cost', 'punct')] 
+
+Root word: ['cost'] 
+
+Words dependent on root: ['much', 'does', 'it', 'cost', 'renew', '?'] 
+
+Nouns dependent on root: [] 
+
+Words related to those nouns: [] 
+
+Head words found:
+ ['cost'] 
+
+Named entities found: [('annual', 'DATE')] 
+
+Answer type: cost 
+
+
+_____________________________________________
+Document Processing
+
+1976  documents retrieved
+
+468  passages retrieved
+
+Ranking passages
+
+Passages ranked by cosine similarity:                                             question  ...     score
+0     How much does it cost to renew my annual pass?  ...  0.926245
+1  I am a Florida resident. Can I renew my Annual...  ...  0.638627
+2  Can I renew an Annual Pass for a Guest other t...  ...  0.747848
+3  I didn't receive my renewal notice and need to...  ...  0.883498
+4  Why am I getting an error message when I try t...  ...  0.704330
+5  If I purchase a select Florida Resident Annual...  ...  0.991983
+6  What proof of residence will I need to provide...  ...  1.224057
+7  I’m an Annual Passholder. How often will I rec...  ...  0.694114
+8  Do Annual Passholders receive discounts on the...  ...  0.863522
+9        How much does it cost to park at the parks?  ...  0.632522
+
+[10 rows x 6 columns]
+
+Answer Processing
+Running NER tagger on passages
+
+Selecting candidate answers
+
+Ranking candidate answers
+
+Cosine score: [1.0090003]
+Word matches: [5]
+Answer's answer type: ['cost']
+Best answer:
+ ['You can view Passholder status renewal prices online, , ask at any Walt Disney World ticket window and call (407) 560-PASS or (407) 560-7277. Guests under 18 years of age must have parent or guardian permission to call.There are 3 convenient ways to renew your Passholder status:Renew online, Renew at any Walt Disney World Resort theme park ticket window or Disney Springs Guest Relations location.Renew over the phone by calling (407) 560-PASS or (407) 560-7277. Guests under 18 years of age must have parent or guardian permission to call.If you are renewing through the Monthly Payment Program for Florida residents, phone renewals are not available. However, you can renew online, in person at a theme park ticket window or Guest Relations location.Though the pass owner does not need to be present for renewal, each Annual Passholder will need to be present at the ticket window to receive his or her pass.If you purchased your current pass before October 4, 2015, you may be asked to select one of the new pass types available at the time of your renewal.Learn more about Annual Passes,  or purchase a new Annual Pass.']
+ ```
+```
+_____________________________________________
+Question:
+ What kinds of prices can I expect to pay for food inside the theme parks and at Disney Resort hotels? 
+
+_____________________________________________
+Question Processing
+
+Question tokenized:
+ ['What', 'kinds', 'of', 'prices', 'can', 'I', 'expect', 'to', 'pay', 'for', 'food', 'inside', 'the', 'theme', 'parks', 'and', 'at', 'Disney', 'Resort', 'hotels', '?'] 
+
+Question stopwords removed:
+ ['kinds', 'prices', 'expect', 'pay', 'food', 'inside', 'theme', 'parks', 'disney', 'resort', 'hotels', '?'] 
+
+Key Words Found:
+ ['disney', 'resort', 'resort'] 
+
+Question words found: ['what'] 
+
+Dependency parsing:___________________________
+ [('What', 'DET', 'kinds', 'det'), ('kinds', 'NOUN', 'expect', 'dobj'), ('of', 'ADP', 'kinds', 'prep'), ('prices', 'NOUN', 'of', 'pobj'), ('can', 'VERB', 'expect', 'aux'), ('I', 'PRON', 'expect', 'nsubj'), ('expect', 'VERB', 'expect', 'ROOT'), ('to', 'PART', 'pay', 'aux'), ('pay', 'VERB', 'expect', 'xcomp'), ('for', 'ADP', 'pay', 'prep'), ('food', 'NOUN', 'for', 'pobj'), ('inside', 'ADP', 'pay', 'prep'), ('the', 'DET', 'parks', 'det'), ('theme', 'NOUN', 'parks', 'compound'), ('parks', 'NOUN', 'inside', 'pobj'), ('and', 'CCONJ', 'inside', 'cc'), ('at', 'ADP', 'inside', 'conj'), ('Disney', 'PROPN', 'Resort', 'compound'), ('Resort', 'PROPN', 'hotels', 'compound'), ('hotels', 'NOUN', 'at', 'pobj'), ('?', 'PUNCT', 'expect', 'punct')] 
+
+Root word: ['expect'] 
+
+Words dependent on root: ['kinds', 'can', 'I', 'expect', 'pay', '?'] 
+
+Nouns dependent on root: ['kinds'] 
+
+Words related to those nouns: [] 
+
+Head words found:
+ ['kinds'] 
+
+Named entities found: [('Disney Resort', 'ORG')] 
+
+Answer type: cost 
+
+
+_____________________________________________
+Document Processing
+
+1976  documents retrieved
+
+1102  passages retrieved
+
+Ranking passages
+
+Passages ranked by cosine similarity:                                             question  ...     score
+0         Where can I smoke at Disney Resort hotels?  ...  0.440513
+1  Where can I find more information about the Di...  ...  1.101673
+2  Are maps of Walt Disney World theme parks avai...  ...  0.947530
+3  What are the best  driving routes to Walt Disn...  ...  0.279831
+4  What are the best driving routes to Walt Disne...  ... -0.208733
+5  How can I celebrate my birthday at Walt Disney...  ...  0.451809
+6  How is the Walt Disney World Resort responding...  ...  0.304609
+7  What kinds of prices can I expect to pay for f...  ...  1.633778
+8  What accommodations exist for Guests with disa...  ...  0.489679
+9  What accommodations exist for Guests with disa...  ...  0.789674
+
+[10 rows x 6 columns]
+
+Answer Processing
+Running NER tagger on passages
+
+Selecting candidate answers
+
+Ranking candidate answers
+
+Cosine score: [1.80263758]
+Word matches: [11]
+Answer's answer type: ['cost']
+Best answer:
+ ['Costs will vary from location to location, and are all listed online. Each spot has ranked according to price using an easy-to-follow, dollar sign breakdown:$ ($14.99 and under per adult), $$ ($15 to $34.99 per adult), $$$ ($35 to $59.99 per adult), $$$$ (over $60 per adult), Range reflects the average price of adult dinner entrées (breakfast and lunch generally cost less), except Character Dining locations, buffet locations, dinner shows, and special dining events where range reflects the average adult price of entire meal and non-alcoholic beverages. Range excludes alcoholic beverages, taxes and gratuities except at dinner shows where beer and wine, taxes and gratuities are included.']
+ ```
+ 
