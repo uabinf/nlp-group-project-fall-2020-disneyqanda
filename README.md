@@ -14,12 +14,68 @@ Leigh Allison (MS Data Science student)
 
 ## Installation
 ```python
-pip install nlp-group-project-fall-2020-disneyqanda
+pip install git+https://github.com/uabinf/nlp-group-project-fall-2020-disneyqanda
 ```
 ## Usage
 ```python
 import disneyqanda
 ```
+## How it works
+Ask a question about Disney World or Disney Land.
+Disney Q & A has 4 main sections:
+1) Data Retrieval
+    * Use selenium to go to each webpage and BeautifulSoup to parse the data found in each webpage
+    * Disney World
+        * Go through 4 main categories: Walt Disney World Resort, Vacation Planning, MyMagic+, Website Support
+        * Within the 4 main categories: go through subcategories which contain the list of questions
+        * For each subcategory, get the list of questions with their answers
+    * Disneyland
+        * Go through 4 main categories: Disneyland Resort, Vacation Planning, Technical Support
+        * Within the 4 main categories: go through subcategories which contain the list of questions
+        * For each subcategory, get the list of questions with their answers
+    * Create a textfile with the list of questions and answers in the following format:
+        Q1
+        A1
+        Q2
+        A2
+        ....
+2) Question Processing
+    * Basic processing
+        * Tokenize
+        * Remove stopwords
+        * POS tag
+        * Remove punctuation
+    * Get question words
+    * Find key words 
+        * Search against custom Disney entity list
+        * Add adjective/noun pairs
+    * Find focus
+        * Dependency parsing
+        * Get root word and words dependent on the root
+        * Get nouns dependent on root and adjectives or nouns describing them
+    * Determine answer type
+        * nltk Naive Bayes model trained on lableed questions
+        * Use features from question processing for the model
+3) Document Processing
+    * Document Retrieval
+        * Read documents, join corresponding questions and answers
+    * Document Segmentation
+        * Given the list of documents from document retrieval, iterate through the questions and check to see if keywords from question processing appear in the question.
+        * If there are keywords that match, add the answer to a list 
+        * Returns a list of possible answers
+    * Passage Retrieval 
+        * Get the list of answers from Document Segmentation
+    * Passage Ranking 
+        * 
+4) Answer Processing
+    * NER tagger 
+        * Search against custom Disney entity list
+    * Candidate answers
+        * Doc2Vec model trained on all Disney questions and answers
+        * Get embeddings of question being asked and questions mined from Disney
+        * Use cosine similarity to get most similar questions
+        * Get questions with most matching words to question being asked
+    * Ranking candidates
 
 ## Directory Structure
 ```bash
