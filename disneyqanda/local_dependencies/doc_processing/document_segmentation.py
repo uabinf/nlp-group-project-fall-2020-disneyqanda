@@ -4,6 +4,7 @@
 # Do any processing (tokenization, NER, etc)
 
 from document_retrieval import doc_retrieval
+import pandas as pd 
 
 def doc_segmentation(keywords):
     df = doc_retrieval()
@@ -12,6 +13,9 @@ def doc_segmentation(keywords):
         question = q[1]['question']
         for word in keywords:
             if word.lower() in question.lower():
-                docs.append(q[1]['answer'])
+                docs.append([q[1]['question'], q[1]['answer']])
                 break
-    return docs
+    df = pd.DataFrame(docs, columns = ['question', 'answer'])
+    return df
+
+print(doc_segmentation(['smoking']))
