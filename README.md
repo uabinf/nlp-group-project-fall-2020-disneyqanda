@@ -24,6 +24,7 @@ import disneyqanda
 Ask a question about Disney World or Disney Land.
 Disney Q & A has 4 main sections:
 1) Data Retrieval
+    
 2) Question Processing
     * Basic processing
         * Tokenize
